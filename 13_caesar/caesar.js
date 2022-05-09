@@ -23,20 +23,60 @@ const asciiArrayCypher = function(string,num) {
     //only convert letters, not punctuation or spaces, to ASCII
     if (true == (asciiArray[i] >= 65 && asciiArray[i] <= 90) 
         || (asciiArray[i] >= 97 && asciiArray[i] <= 122)){
-        //keep capital letters capital, lowercase lower. WHILE LOOP?
-        if (num > 25) {
-            num -= 26;
-            asciiArray[i] = (asciiArray[i] + num);
+//positive and negative numbers
+      /*
+26 + -1 = 25
+26 + -2 = 24
 
-            
-        }else {
-            asciiArray[i] = (asciiArray[i] + num);
-           }
-    }else continue;
+What about numbers greater than 26 or less than - 26
+*/
+      if (num < -26){
+        while (num < -26){
+          num += 26;
+        }
+      }
+      //to deal with nums greater than 26
+      if (num >= 26) {
+        while (num >= 26) {
+          num -= 26;
+        }} 
+      if (num < 0) {
+        num = 26 + num;
+      }
+    //cypher the array
+      asciiArray[i] += num;
+//CAPS stay CAP and lower stay lower
+  //higher ASCII caps are being pushed into next range
+      // when n > 6, CAPS letter are pushed into lowercase range
+
+ /*
+      if num is 7  'Z' 90 becomes 'a' 97
+        expected outcome is 'G' 71 or 90 minus (26-num)
+      */
+      if (num > 6) {
+           if (asciiArray[i] > 96 
+            && asciiArray[i] < num + 91) {
+             asciiArray[i] -= 26;
+            }
+      }
+      
+      if (asciiArray[i] > 122) {
+        asciiArray[i] -= 26;
+      }
+
+      if (asciiArray[i] > 90 && asciiArray[i] < 97) {
+        asciiArray[i] -= 26;
+      }
     
-}
-return asciiArray;
-}
+       
+      
+      
+        
+    
+
+}else continue;
+}return asciiArray;}
+
 //take asciiArray and convert each array ASCII number back into letters/characters
 
 const asciiToGlyph = function(string,num) {
